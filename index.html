@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surprise for Prachi 💖</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700&family=Pacifico&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #ffe6ea;
+            background-image: radial-gradient(#ffb6c1 10%, transparent 11%), radial-gradient(#ffb6c1 10%, transparent 11%);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+            font-family: 'Nunito', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 10px 40px rgba(255, 105, 180, 0.4);
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+            border: 4px dashed #ff99cc;
+            overflow: hidden;
+        }
+
+        .scene {
+            display: none;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .active {
+            display: block;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        h1, h2 {
+            color: #ff1493;
+            font-family: 'Pacifico', cursive;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            background: #ff69b4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin: 5px;
+            font-family: 'Nunito', sans-serif;
+            transition: transform 0.2s, background 0.2s;
+            box-shadow: 0 4px 10px rgba(255, 105, 180, 0.3);
+        }
+        .btn:hover {
+            transform: scale(1.1);
+            background: #ff1493;
+        }
+
+        /* Scare Overlay */
+        #scare-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+        }
+        #scare-overlay img {
+            width: 80%;
+            max-width: 300px;
+            position: absolute;
+            top: 15%;
+            left: 10%;
+            animation: jumpScare 0.5s infinite alternate;
+        }
+        @keyframes jumpScare {
+            0% { transform: scale(1) rotate(-5deg); }
+            100% { transform: scale(1.1) rotate(5deg); }
+        }
+
+        .photo-frame {
+            width: 130px; height: 130px;
+            border: 4px solid #ff1493;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 15px auto;
+            display: block;
+            box-shadow: 0 5px 15px rgba(255, 20, 147, 0.4);
+        }
+        .drag-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+            transform: translateX(100px); 
+            animation: dragCake 3s forwards ease-in-out;
+        }
+        @keyframes dragCake {
+            0% { transform: translateX(150px); }
+            25% { transform: translateX(100px) rotate(-10deg); }
+            50% { transform: translateX(60px) rotate(10deg); }
+            75% { transform: translateX(30px) rotate(-5deg); }
+            100% { transform: translateX(0px); }
+        }
+        .miniature { font-size: 60px; display: inline-block; }
+        .bubble {
+            background: white; border: 2px solid #ff1493;
+            padding: 5px 10px; border-radius: 15px;
+            font-size: 14px; color: #ff1493;
+            position: absolute; top: -50px; left: -25px; font-weight: bold; width: 180px;
+        }
+
+        #stage { position: relative; height: 150px; overflow: hidden; margin-top: 20px; }
+        .actor {
+            font-size: 60px; position: absolute; bottom: 10px;
+            transition: all 0.5s ease-in-out;
+        }
+        #boy { left: 5%; }
+        #girl { right: 5%; }
+        #yank-hand { font-size: 60px; position: absolute; left: -100px; bottom: 10px; transition: left 0.3s; }
+        
+        /* New Gallery Styles for Scene 8 */
+        .photo-slide { display: none; text-align: center; }
+        .photo-slide.active-slide { display: block; }
+    </style>
+</head>
+<body>
+
+    <div id="scare-overlay" onclick="hideScare()">
+        <a href="https://imgbb.com/"><img src="https://i.ibb.co/v47x2bQL/1000074762-removebg-preview.png" alt="1000074762 removebg preview" border="0"></a>
+        <h1 style="color: white; position: absolute; bottom: 10%; width: 100%; font-size: 20px;">Tap to close</h1>
+    </div>
+
+    <div class="container">
+        <div id="scene1" class="scene active">
+            <h1>You want a surprise? 🎁</h1>
+            <button class="btn" onclick="nextScene(2)">YES 😍</button>
+            <button class="btn" onclick="showScare()">NO 😒</button>
+        </div>
+
+        <div id="scene2" class="scene">
+            <h2>HELLO CUTIE! <br>WHO I AM? 🤔</h2>
+            <div style="font-size: 50px; margin-bottom: 20px;">👦</div>
+            <button class="btn" onclick="wrongPassword()">BANDAR 🐒</button>
+            <button class="btn" onclick="correctPassword()">GAWAR 🤓</button>
+            <p id="error-msg" style="color: red; font-weight: bold; margin-top: 15px; display: none;"></p>
+        </div>
+
+        <div id="scene3" class="scene">
+            <a href="https://ibb.co/C3S3Q0z9">
+                <img src="https://i.ibb.co/bMGMXdPv/IMG-20260524-WA0014-2.jpg" alt="Prachi" class="photo-frame" border="0">
+            </a>
+            
+            <div style="position: relative;">
+                <div class="drag-container">
+                    <div style="position: relative;">
+                        <span class="bubble" id="blow-msg">HAPPY BIRTHDAY PRACHI 🎂<br>24 MAY 2026</span>
+                        <span class="miniature" id="cake-puller">👦</span>
+                    </div>
+                    <span class="miniature" id="the-cake" style="cursor:pointer;" onclick="blowCandle()">🎂<span id="candle" style="position:absolute; top:-20px; left:20px; font-size:30px;">🕯️</span></span>
+                </div>
+            </div>
+        </div>
+
+        <div id="scene4" class="scene">
+            <h2 id="pop-text" style="font-size: 50px;">🎉🎊</h2>
+            <p style="font-size: 16px; font-style: italic; color: #555;">
+                "Sorry late ho gya... 😅<br>
+                HEY JANU YRR YE JALDI ME BNAYA HAI OR SORRY YRR ITNA KHRB KRA SAB BS YE CHOTA SA GIFT JO BANA PAYA ME... BS HAPPY BIRTHDAY JANE JIGARR ❤️"
+            </p>
+            <button class="btn" onclick="nextScene(5)">My Gift? 🎁</button>
+        </div>
+
+        <div id="scene5" class="scene">
+            <span class="miniature" style="font-size: 80px;">🥺</span>
+            <h2>Your gift...</h2>
+            <button class="btn" onclick="revealFakeGift()">Open it</button>
+        </div>
+
+        <div id="scene6" class="scene">
+            <span class="miniature" style="font-size: 70px;">😅</span>
+            <h2>Sorry! Real gift... 🌷</h2>
+            <button class="btn" onclick="startFinale()">Thank you! 🥰</button>
+        </div>
+
+        <div id="scene7" class="scene">
+            <h2>Happy Birthday Prachi! 🎉</h2>
+            <div id="stage">
+                <div id="yank-hand">🪝</div>
+                <div id="boy" class="actor">👦</div>
+                <div id="girl" class="actor">👧</div>
+            </div>
+            <p style="color: #ff1493; font-weight: bold; font-size: 20px;">5201314 💖</p>
+            <button class="btn" onclick="nextScene(8)">Open Letter 💌</button>
+        </div>
+
+        <!-- NEW Scene 8 -->
+        <div id="scene8" class="scene">
+            <div id="letter-view" class="active-slide">
+                <h2>Ek Letter Tere Liye 💌</h2>
+                <button class="btn" onclick="document.getElementById('letter-view').style.display='none'; document.getElementById('gallery-view').style.display='block'">Read Message 💌</button>
+            </div>
+            <div id="gallery-view" style="display:none;">
+                <div id="slide1" class="photo-slide active-slide"><p style="font-weight:bold; color:#ff1493;">ME 😃</p><img src="https://i.ibb.co/MkKSxRD3/file-00000000ea9471fbbaac19c5b63bb8cd.png" style="width:200px; border-radius:15px;"></div>
+                <div id="slide2" class="photo-slide"><p style="font-weight:bold; color:#ff1493;">MERI MADAM 🫂</p><img src="https://i.ibb.co/PvncgDT0/file-00000000725071fa9588ace64ae14796.png" style="width:200px; border-radius:15px;"></div>
+                <div id="slide3" class="photo-slide"><p style="font-weight:bold; color:#ff1493;">WE😗</p><img src="https://i.ibb.co/n8jPMjp0/file-000000002e0072098ce6a08862bf9aed.png" style="width:200px; border-radius:15px;"></div>
+                <div id="slide4" class="photo-slide"><p style="font-weight:bold; color:#ff1493;">THIS MOVEMENT 🧿</p><img src="https://i.ibb.co/JjJQJWzM/file-00000000cd5c720cb78897b2c3f071b7.png" style="width:200px; border-radius:15px;"></div>
+                <div id="slide5" class="photo-slide"><p style="font-weight:bold; color:#ff1493;">MAZAK 💀</p><img src="https://i.ibb.co/JWd43pwk/file-000000007a90720aa9d866a3e5cd0768.png" style="width:200px; border-radius:15px;"></div>
+                <div id="slide6" class="photo-slide"><p style="font-weight:bold; color:#ff1493;">HAPPY BIRTHDAY DARLING 🥳</p><img src="https://i.ibb.co/LD4zZ753/1779642844623.png" style="width:200px; border-radius:15px;"></div>
+                <div id="slide7" class="photo-slide">
+                    <h2 style="color:#ff1493; margin-top:50px;">It's over</h2>
+                    <p style="font-weight:bold; color:#ff1493; font-size:18px;">BEST WISHES... 💫<br>KHRB BNA SORRY 😅</p>
+                </div>
+                <button id="next-btn" class="btn" onclick="nextSlide()">Next Photo ➡️</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function nextScene(num) {
+            document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
+            document.getElementById('scene' + num).classList.add('active');
+        }
+        function showScare() { document.getElementById('scare-overlay').style.display = 'block'; }
+        function hideScare() { document.getElementById('scare-overlay').style.display = 'none'; }
+        function wrongPassword() {
+            let msg = document.getElementById('error-msg');
+            msg.innerText = "Bandar Tera muh chudel.... 😠 Try again!";
+            msg.style.display = 'block';
+        }
+        function correctPassword() {
+            document.getElementById('error-msg').style.display = 'none';
+            nextScene(3);
+        }
+        function blowCandle() {
+            document.getElementById('candle').innerText = '💨';
+            document.getElementById('blow-msg').innerText = "Yaaay! 👏";
+            setTimeout(() => { nextScene(4); }, 1500);
+        }
+        function revealFakeGift() {
+            showScare();
+            setTimeout(() => { hideScare(); nextScene(6); }, 3000); 
+        }
+        function startFinale() {
+            nextScene(7);
+            let boy = document.getElementById('boy');
+            let girl = document.getElementById('girl');
+            let yank = document.getElementById('yank-hand');
+            boy.innerText = '👋👦';
+            girl.innerText = '👧👋';
+            setTimeout(() => { boy.innerText = '🏃‍♂️💨'; boy.style.left = '45%'; girl.style.right = '35%'; girl.innerText = '😲'; }, 1500);
+            setTimeout(() => { boy.innerText = '🫂'; girl.innerText = '🥰'; }, 3000);
+            setTimeout(() => { boy.innerText = '😘'; girl.innerText = '😳'; }, 4500);
+            setTimeout(() => { boy.innerText = '🏃‍♂️💨'; boy.style.transform = 'scaleX(-1)'; boy.style.left = '120%'; }, 5500);
+            setTimeout(() => { girl.innerText = '🏃‍♀️💨'; girl.style.transform = 'scaleX(-1)'; girl.style.right = '-50%'; }, 6500);
+            setTimeout(() => { boy.style.transition = 'left 0.5s'; boy.style.transform = 'scaleX(1)'; boy.innerText = '👀😘'; boy.style.left = '10px'; }, 8500);
+            setTimeout(() => { yank.style.left = '15px'; }, 10000);
+            setTimeout(() => { yank.style.left = '-100px'; boy.style.left = '-100px'; boy.innerText = '😵'; }, 10500);
+        }
+        // Gallery logic for Scene 8 (Total 7 slides)
+        let currentSlide = 1; 
+        function nextSlide() { 
+            document.getElementById('slide' + currentSlide).classList.remove('active-slide'); 
+            currentSlide++; 
+            document.getElementById('slide' + currentSlide).classList.add('active-slide'); 
+            if (currentSlide === 7) document.getElementById('next-btn').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
